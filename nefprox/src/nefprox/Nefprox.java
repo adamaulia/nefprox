@@ -33,34 +33,35 @@ public class Nefprox {
         int kolom =4;
         String[][] rawdata = new String[kolom][baris];
         Double[][] data = new Double[kolom][baris];
+        String dir="src\\data\\BUNDESBANK-BBK01_WT5511.xls";
         
-        try {
-
-            Workbook w = Workbook.getWorkbook(new File("D:\\don't open\\semester 7\\SC\\nefprox\\nefprox\\src\\data\\BUNDESBANK-BBK01_WT5511.xls")); //ambil data
-            Sheet sh = w.getSheet(2);               //sheet kedua
-
-            for (int i = 0; i < kolom; i++) {
-                for (int j = 0; j < baris; j++) {
-                    Cell c = sh.getCell(i, j);
-                    String isi = c.getContents();
-                    rawdata[i][j] = isi;
-
-                }
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(Nefprox.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (BiffException ex) {
-            Logger.getLogger(Nefprox.class.getName()).log(Level.SEVERE, null, ex);
-        }
-                
-
-        
-        for (int i = 0; i < kolom; i++) {
-            for (int j = 0; j < baris; j++) {
-                data[i][j] = Double.parseDouble(rawdata[i][j]);
-            }
-        }
-        
+//        try {
+//
+//            Workbook w = Workbook.getWorkbook(new File("src\\data\\BUNDESBANK-BBK01_WT5511.xls")); //ambil data
+//            Sheet sh = w.getSheet(2);               //sheet kedua
+//
+//            for (int i = 0; i < kolom; i++) {
+//                for (int j = 0; j < baris; j++) {
+//                    Cell c = sh.getCell(i, j);
+//                    String isi = c.getContents();
+//                    rawdata[i][j] = isi;
+//
+//                }
+//            }
+//        } catch (IOException ex) {
+//            Logger.getLogger(Nefprox.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (BiffException ex) {
+//            Logger.getLogger(Nefprox.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//                
+//
+//        
+//        for (int i = 0; i < kolom; i++) {
+//            for (int j = 0; j < baris; j++) {
+//                data[i][j] = Double.parseDouble(rawdata[i][j]);
+//            }
+//        }
+//        
         for (int i = 0; i < rawdata[1].length; i++) {
             for (int j = 0; j < rawdata.length; j++) {
                 System.out.print(rawdata[j][i]+" ");
@@ -68,6 +69,17 @@ public class Nefprox {
             System.out.println("");
         }
     
+       Data d = new Data();
+       rawdata=d.getData(dir);
+       data=d.normalisasi(rawdata);
+       
+        for (int i = 0; i < data[1].length; i++) {
+            for (int j = 0; j < data.length; j++) {
+                System.out.print(data[j][i]+" ");
+            }
+            System.out.println("");
+        }
+        d.run();
         System.out.println("done");
     }
     
