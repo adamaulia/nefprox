@@ -29,7 +29,7 @@ public class Nefprox {
         // TODO code application logic here
         
         //import data
-        int baris =6016;
+        int baris =6017;
         int kolom =4;
         String[][] rawdata = new String[kolom][baris];
         Double[][] data = new Double[kolom][baris];
@@ -73,14 +73,23 @@ public class Nefprox {
        rawdata=d.getData(dir);
        data=d.normalisasi(rawdata);
        
-        for (int i = 0; i < data[1].length; i++) {
-            for (int j = 0; j < data.length; j++) {
-                System.out.print(data[j][i]+" ");
+        System.out.println("raw data");
+        for (int i = 0; i < rawdata[1].length; i++) {
+            for (int j = 0; j < rawdata.length; j++) {
+                System.out.print(i+". "+rawdata[j][i]+" ");
             }
             System.out.println("");
         }
-        d.run();
+        
+        System.out.println(" normalisasi");
+        for (int i = 0; i < data[1].length; i++) {
+            for (int j = 0; j < data.length; j++) {
+                System.out.print(i+". "+data[j][i]+" ");
+            }
+            System.out.println("");
+        }
         System.out.println("done");
+        d.run();
     }
     
 }
