@@ -62,12 +62,12 @@ public class Nefprox {
 //            }
 //        }
 //        
-        for (int i = 0; i < rawdata[1].length; i++) {
-            for (int j = 0; j < rawdata.length; j++) {
-                System.out.print(rawdata[j][i]+" ");
-            }
-            System.out.println("");
-        }
+//        for (int i = 0; i < rawdata[1].length; i++) {
+//            for (int j = 0; j < rawdata.length; j++) {
+//                System.out.print(rawdata[j][i]+" ");
+//            }
+//            System.out.println("");
+//        }
     
        Data d = new Data();
        rawdata=d.getData(dir);
