@@ -52,6 +52,18 @@ public String[][] getData(String dir){
         return rawdata;
     }
 
+public Double[][] dataDouble(String[][] rawdata){
+    System.out.println("start normalisasi");
+    Double[][] data = new Double[kolom][baris];
+    
+    for (int i = 0; i < kolom; i++) {
+        for (int j = 0; j < baris; j++) {
+            data[i][j] = Double.parseDouble(rawdata[i][j]);
+        }
+    }
+    return data;
+}
+
 public Double[][] normalisasi(String[][] rawdata){
     System.out.println("start normalisasi");
        Double[][] data = new Double[kolom][baris];
@@ -167,6 +179,7 @@ public Double[][] normalisasi(String[][] rawdata){
 
     }
 
+    
     public void run(){
         System.out.println("max1 "+max1);
         System.out.println("min1 "+min1);
