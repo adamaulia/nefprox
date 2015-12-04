@@ -18,8 +18,12 @@ public class FuzzyfikasiSegitiga {
    
    public double[] dofuzy(double value){
    
-   double [] segitiga = new double[2];
-//    buat rendah
+   double [] segitiga = new double[3];
+   segitiga[0]=0;
+   segitiga[1]=0;
+   segitiga[2]=0;
+   
+    //buat rendah
         if(value < batasTengah[0]){
             segitiga[0]=-(value-batasBawah)/(batasBawah-0);
             segitiga[1]=0;

@@ -23,7 +23,7 @@ int baris =6016;
 int kolom =4;
     
 String[][] rawdata2 = new String[kolom][baris];
-Double[][] data2 = new Double[kolom][baris];
+double[][] data2 = new double[kolom][baris];
  double max1, max2, max3, max4 = 0,min1, min2, min3,min4 =0;    
    
      //String dir="src\\data\\BUNDESBANK-BBK01_WT5511.xls";
@@ -52,9 +52,9 @@ public String[][] getData(String dir){
         return rawdata;
     }
 
-public Double[][] dataDouble(String[][] rawdata){
+public double[][] dataDouble(String[][] rawdata){
     System.out.println("convert string ke double");
-    Double[][] data = new Double[kolom][baris];
+    double[][] data = new double[kolom][baris];
     
     for (int i = 0; i < kolom; i++) {
         for (int j = 0; j < baris; j++) {
@@ -65,9 +65,9 @@ public Double[][] dataDouble(String[][] rawdata){
    
 }
 
-public Double[][] normalisasi(String[][] rawdata){
+public double[][] normalisasi(String[][] rawdata){
     System.out.println("start normalisasi");
-       Double[][] data = new Double[kolom][baris];
+       double[][] data = new double[kolom][baris];
       
     //convert 2 double    
         for (int i = 0; i < kolom; i++) {

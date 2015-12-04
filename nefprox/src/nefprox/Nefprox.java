@@ -31,9 +31,13 @@ public class Nefprox {
         //import data
         int baris =6017;
         int kolom =4;
+        double temp;
+        double [] tempFuzzy = new double[2];
         String[][] rawdata = new String[kolom][baris];
-        Double[][] data = new Double[kolom][baris];
+        double[][] data = new double[kolom][baris];
         String dir="src\\data\\BUNDESBANK-BBK01_WT5511.xls";
+        Data d = new Data();
+        FuzzyfikasiSegitiga f = new FuzzyfikasiSegitiga();
         
 //        try {
 //
@@ -69,28 +73,28 @@ public class Nefprox {
 //            System.out.println("");
 //        }
     
-       Data d = new Data();
+
        rawdata=d.getData(dir);
        data=d.dataDouble(rawdata);
        //d.dataDouble(rawdata);
        
         System.out.println("data double");
-        for (int i = 0; i < rawdata[1].length; i++) {
-            for (int j = 0; j < rawdata.length; j++) {
-                System.out.print(i+". "+data[j][i]+" ");
-            }
-            System.out.println("");
-        }
-//        
-//        System.out.println(" normalisasi");
-//        for (int i = 0; i < data[1].length; i++) {
-//            for (int j = 0; j < data.length; j++) {
+//        for (int i = 0; i < rawdata[1].length; i++) {
+//            for (int j = 0; j < rawdata.length; j++) {
 //                System.out.print(i+". "+data[j][i]+" ");
 //            }
 //            System.out.println("");
 //        }
-//        System.out.println("done");
-//        d.run();
+        
+        temp=data[0][0];
+        System.out.println("temp "+temp);
+        tempFuzzy=f.dofuzy(temp);
+        
+        for (int i = 0; i <= 2; i++) {
+            System.out.println("fuzzy "+tempFuzzy[i]);
+        }
+        //tes fuzzy
+        
     }
     
 }
