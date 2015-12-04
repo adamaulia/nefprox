@@ -66,7 +66,7 @@ public class StructureLearning {
 
         for (int i = 0; i < datafuzzyfikasi[1].length; i++) {
             for (int j = 0; j < datafuzzyfikasi.length; j++) {
-                System.out.print(datafuzzyfikasi[j][i]+" | ");
+                System.out.print(datafuzzyfikasi[j][i]+" , ");
             }
             System.out.println("");
         }

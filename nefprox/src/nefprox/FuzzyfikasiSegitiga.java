@@ -23,25 +23,31 @@ public class FuzzyfikasiSegitiga {
    segitiga[1]=0;
    segitiga[2]=0;
    
-    //buat rendah
+    //buat rendah daerah 1
         if(value < batasTengah[0]){
             segitiga[0]=-(value-batasBawah)/(batasBawah-0);
             segitiga[1]=0;
             segitiga[2]=0;
         }else 
-//     buat sedang     
-        if((value > batasTengah[0]) &&(value < batasBawah) ){
+//     buat sedang / tengah daerah 2   
+        if((value > batasTengah[0]) &&(value < ((batasTengah[0]+batasTengah[1])/2) ) ){
            segitiga[0]= -(value-batasBawah)/(batasBawah-0);
-           segitiga[1]=(value-batasTengah[0]/((batasTengah[1]+batasTengah[0])/2)-batasTengah[0]);
+           segitiga[1]=(value-batasTengah[0])/(((batasTengah[1]+batasTengah[0])/2)-batasTengah[0]);
            segitiga[2]=0;
         }else
-//      buat tinggi 
-        if((value >(batasTengah[1]+batasTengah[0])/2)&&(value < batasAtas)) {
+//      buat tinggi atau rendah daerah 3
+        if((value >((batasTengah[1]+batasTengah[0])/2))&&(value < batasTengah[1])) {
            segitiga[0]=0;
-           segitiga[1]=-(value-batasTengah[1])/(batasAtas-((batasTengah[1]-batasTengah[0])/2));
-           segitiga[2]=(value-batasAtas)/(1-batasAtas);
+           segitiga[1]=-(value-batasAtas)/(batasAtas-((batasTengah[1]-batasTengah[0])/2));
+           segitiga[2]=(value-batasTengah[1])/(1896-batasAtas);
+        }else
+//      buat tinggi  daerah 4
+        if(value > batasTengah[1]){
+          segitiga[0]=0;
+          segitiga[1]=0;
+          segitiga[2]=((value-batasTengah[1])/(1896-batasAtas));
         }
-   
+
     return segitiga;
    }
     
