@@ -71,25 +71,26 @@ public class Nefprox {
     
        Data d = new Data();
        rawdata=d.getData(dir);
-       data=d.normalisasi(rawdata);
+       data=d.dataDouble(rawdata);
+       //d.dataDouble(rawdata);
        
-        System.out.println("raw data");
+        System.out.println("data double");
         for (int i = 0; i < rawdata[1].length; i++) {
             for (int j = 0; j < rawdata.length; j++) {
-                System.out.print(i+". "+rawdata[j][i]+" ");
-            }
-            System.out.println("");
-        }
-        
-        System.out.println(" normalisasi");
-        for (int i = 0; i < data[1].length; i++) {
-            for (int j = 0; j < data.length; j++) {
                 System.out.print(i+". "+data[j][i]+" ");
             }
             System.out.println("");
         }
-        System.out.println("done");
-        d.run();
+//        
+//        System.out.println(" normalisasi");
+//        for (int i = 0; i < data[1].length; i++) {
+//            for (int j = 0; j < data.length; j++) {
+//                System.out.print(i+". "+data[j][i]+" ");
+//            }
+//            System.out.println("");
+//        }
+//        System.out.println("done");
+//        d.run();
     }
     
 }

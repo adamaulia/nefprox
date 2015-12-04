@@ -53,7 +53,7 @@ public String[][] getData(String dir){
     }
 
 public Double[][] dataDouble(String[][] rawdata){
-    System.out.println("start normalisasi");
+    System.out.println("convert string ke double");
     Double[][] data = new Double[kolom][baris];
     
     for (int i = 0; i < kolom; i++) {
@@ -62,6 +62,7 @@ public Double[][] dataDouble(String[][] rawdata){
         }
     }
     return data;
+   
 }
 
 public Double[][] normalisasi(String[][] rawdata){

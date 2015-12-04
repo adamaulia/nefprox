@@ -11,16 +11,14 @@ package nefprox;
  * @author Adam
  */
 public class FuzzyfikasiSegitiga {
-   double batasAtas = 0.8;  
-   double batasBawah = 0.5;
-   double [] batasTengah = new double[1];    
+   double batasAtas = 1556;  //0.8
+   double batasBawah = 965; //0.5
+   double [] batasTengah = {500,1198}; //0.3,0.6
 
    
    public double[] dofuzy(double value){
-   batasTengah[0]=0.3;
-   batasTengah[1]=0.6;  
    
-    double [] segitiga = new double[2];
+   double [] segitiga = new double[2];
 //    buat rendah
         if(value < batasTengah[0]){
             segitiga[0]=-(value-batasBawah)/(batasBawah-0);
