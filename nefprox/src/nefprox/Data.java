@@ -24,7 +24,7 @@ int kolom =4;
     
 String[][] rawdata2 = new String[kolom][baris];
 double[][] data2 = new double[kolom][baris];
- double max1, max2, max3, max4 = 0,min1, min2, min3,min4 =0;    
+double max1, max2, max3, max4 = 0,min1, min2, min3,min4 =0;    
    
      //String dir="src\\data\\BUNDESBANK-BBK01_WT5511.xls";
     
