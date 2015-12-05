@@ -49,7 +49,7 @@ public class Rule {
             temp[0]="Tinggi";
         }
         
-        temp[1]=""+max;
+        temp[1]=String.valueOf(max);
         return temp;
         
     }

@@ -54,11 +54,11 @@ public class Fuzzifikasi {
         }else if((input >fk.getBatas(3))&&(input <= fk.getBatas(4))) { //      buat tinggi atau sedang daerah 3 , 849<value<1431
             nilaiLinguistik[0]=0;
             nilaiLinguistik[1]=(fk.getBatas(4)-input)/(fk.getBatas(4)-tengah);
-            nilaiLinguistik[2]=(input-fk.getBatas(3)/(fk.getBatas(5)-fk.getBatas(3)));
+            nilaiLinguistik[2]=(input-fk.getBatas(3))/(fk.getBatas(5)-fk.getBatas(3));
         }else if(input > fk.getBatas(4)){ //      buat tinggi  daerah 4, value>1431
             nilaiLinguistik[0]=0;
             nilaiLinguistik[1]=0;
-            nilaiLinguistik[2]=(fk.getBatas(5)-input)/(fk.getBatas(5)-fk.getBatas(3));
+            nilaiLinguistik[2]=(input-fk.getBatas(3))/(fk.getBatas(5)-fk.getBatas(3));
         }
         
         return nilaiLinguistik;
