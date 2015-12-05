@@ -18,9 +18,10 @@ public class MainClass {
     static double[][] fuzzyinput;
     
     public static void printRule(){
+        String[][] tempRule;
         for (int i=0; i<rules.size(); i++){
-            String[][] tempRule = rules.get(i).getRule();
-            String temp = "IF X1="+tempRule[0][0]+"("+tempRule[0][1]+") AND "+tempRule[1][0]+"("+tempRule[1][1]+") AND "+tempRule[2][0]+"("+tempRule[2][1]+") THEN "+tempRule[3][0]+"("+tempRule[3][1]+")";
+            tempRule = rules.get(i).getRule();
+            String temp = i+" : IF X1="+tempRule[0][0]+"("+tempRule[0][1]+") AND X2="+tempRule[1][0]+"("+tempRule[1][1]+") AND X3="+tempRule[2][0]+"("+tempRule[2][1]+") THEN "+tempRule[3][0]+"("+tempRule[3][1]+")";
             System.out.println(temp);
         }
     }
@@ -33,7 +34,6 @@ public class MainClass {
         for (int i=0; i<rules.size(); i++){
             if(inputRule.getRule()==rules.get(i).getRule()){
                 temp=true;
-                break;
             }
         }
         return temp;
@@ -42,8 +42,8 @@ public class MainClass {
     public static  void makeRule(){
         Rule tempRule = new Rule();
         boolean temp;
-        for(int i=0; i<fuzzyinput.length; i++){
-            tempRule.setRule(fuzzyinput[i], fuzzyinput[1], fuzzyinput[2], fuzzyinput[3]);
+        for(int i=0; i<fuzzyinput.length-3; i++){
+            tempRule.setRule(fuzzyinput[i], fuzzyinput[i+1], fuzzyinput[i+2], fuzzyinput[i+3]);
             temp = checkRule(tempRule);
             if(temp==false){
                 rules.add(tempRule);
@@ -52,9 +52,14 @@ public class MainClass {
     }
     
     public static void makeFuzzyInput(double[] input){
-        fuzzyinput = new double[input.length][2];
+        fuzzyinput = new double[input.length][3];
         for (int i=0; i<input.length; i++){
             fuzzyinput[i] = fuzzy.doFuzzy(input[i]);
+            System.out.println(i);
+            System.out.println(fuzzyinput[i][0]);
+            System.out.println(fuzzyinput[i][1]);
+            System.out.println(fuzzyinput[i][2]);
+            System.out.println("");
         }
     }
     
@@ -73,7 +78,7 @@ public class MainClass {
         fuzzy = new Fuzzifikasi(fk,data.getMax(),data.getMin());
         makeFuzzyInput(data.getAllData());
         makeRule();
-        printRule();
+//        printRule();
     }
 
 }

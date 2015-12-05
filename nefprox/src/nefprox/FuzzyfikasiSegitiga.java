@@ -25,14 +25,14 @@ public class FuzzyfikasiSegitiga {
    double tengah = ((batasTengah[0]+batasTengah[1])/2) ;
     //buat rendah daerah 1, value<732
         if(value < batasTengah[0]){
-            segitiga[0]=-(value-batasBawah)/(batasBawah-0);
+            segitiga[0]=-(value-batasBawah)/(batasBawah-34.7);
             segitiga[1]=0;
             segitiga[2]=0;
             
         }else 
 //     buat sedang / tengah daerah 2 , 267<value<849
         if((value > batasTengah[0]) &&(value <=tengah ) ){
-           segitiga[0]= -(value-batasBawah)/(batasBawah-0);
+           segitiga[0]= -(value-batasBawah)/(batasBawah-34.7);
            segitiga[1]=(value-batasTengah[0])/(tengah-batasTengah[0]);
            segitiga[2]=0;
             
