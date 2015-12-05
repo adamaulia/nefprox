@@ -27,7 +27,6 @@ public class FungsiKeanggotaan {
     }
     
     public double getBatas(int idx){
-        double temp = batas[idx];
-        return temp;
+        return batas[idx];
     }
 }
