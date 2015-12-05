@@ -11,9 +11,9 @@ package nefprox;
  * @author Adam
  */
 public class FuzzyfikasiSegitiga {
-   double batasAtas = 1556;  //0.8
-   double batasBawah = 965; //0.5
-   double [] batasTengah = {500,1198}; //0.3,0.6
+   double batasAtas = 1431;  //0.8 // 0.7
+   double batasBawah = 732; //0.5 // 0.4
+   double [] batasTengah = {267,965}; //0.3,0.6  //  0.2,0.5
 
    
    public double[] dofuzy(double value){
@@ -22,30 +22,34 @@ public class FuzzyfikasiSegitiga {
    segitiga[0]=0;
    segitiga[1]=0;
    segitiga[2]=0;
-   
-    //buat rendah daerah 1
+   double tengah = ((batasTengah[0]+batasTengah[1])/2) ;
+    //buat rendah daerah 1, value<732
         if(value < batasTengah[0]){
             segitiga[0]=-(value-batasBawah)/(batasBawah-0);
             segitiga[1]=0;
             segitiga[2]=0;
+            
         }else 
-//     buat sedang / tengah daerah 2   
-        if((value > batasTengah[0]) &&(value < ((batasTengah[0]+batasTengah[1])/2) ) ){
+//     buat sedang / tengah daerah 2 , 267<value<849
+        if((value > batasTengah[0]) &&(value <=tengah ) ){
            segitiga[0]= -(value-batasBawah)/(batasBawah-0);
-           segitiga[1]=(value-batasTengah[0])/(((batasTengah[1]+batasTengah[0])/2)-batasTengah[0]);
+           segitiga[1]=(value-batasTengah[0])/(tengah-batasTengah[0]);
            segitiga[2]=0;
+            
         }else
-//      buat tinggi atau rendah daerah 3
-        if((value >((batasTengah[1]+batasTengah[0])/2))&&(value < batasTengah[1])) {
+//      buat tinggi atau sedang daerah 3 , 849<value<1431
+        if((value >tengah)&&(value <= batasTengah[1])) {
            segitiga[0]=0;
-           segitiga[1]=-(value-batasAtas)/(batasAtas-((batasTengah[1]-batasTengah[0])/2));
-           segitiga[2]=(value-batasTengah[1])/(1896-batasAtas);
+           segitiga[1]=-(value-batasAtas)/(batasAtas-tengah);
+           segitiga[2]=(-(value-batasAtas)/(1896-batasTengah[1]));
+            
         }else
-//      buat tinggi  daerah 4
+//      buat tinggi  daerah 4, value>1431
         if(value > batasTengah[1]){
           segitiga[0]=0;
           segitiga[1]=0;
-          segitiga[2]=((value-batasTengah[1])/(1896-batasAtas));
+          segitiga[2]=((value-batasAtas)/(1896-batasTengah[1]));
+            
         }
 
     return segitiga;

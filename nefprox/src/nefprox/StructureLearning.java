@@ -31,7 +31,7 @@ public class StructureLearning {
         double [] temp4 = new double[3]; //nampung hasil fuzzy 10-12
         double [] tempdata = new double[4]; //nampung data per kolom
         
-        for (int i = 0; i < data[1].length; i++) {
+        for (int i = 1; i < data[1].length; i++) {
 //             System.out.println("pindah ke tempdata");
 //             System.out.println("data[1].length  i "+data[1].length);
 
@@ -64,13 +64,19 @@ public class StructureLearning {
         }
         System.out.println("done move tempdata");
 
-        for (int i = 0; i < datafuzzyfikasi[1].length; i++) {
+        for (int i = 1; i < datafuzzyfikasi[1].length; i++) {
             for (int j = 0; j < datafuzzyfikasi.length; j++) {
                 System.out.print(datafuzzyfikasi[j][i]+" , ");
             }
             System.out.println("");
         }
 
+//        for (int i = 1; i < 2979; i++) {
+//            for (int j = 0; j < data.length; j++) {
+//                System.out.print(data[j][i]+" ");
+//            }
+//            System.out.println("");
+//        }
         return datafuzzyfikasi;
         
 
