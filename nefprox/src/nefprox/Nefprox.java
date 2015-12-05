@@ -31,65 +31,23 @@ public class Nefprox {
         //import data
         int baris =6017;
         int kolom =4;
+        double temp;
+        
+        double [] tempFuzzy = new double[2];
         String[][] rawdata = new String[kolom][baris];
-        Double[][] data = new Double[kolom][baris];
+        double[][] data = new double[kolom][baris];
+        
         String dir="src\\data\\BUNDESBANK-BBK01_WT5511.xls";
+        Data d = new Data();
+        StructureLearning sl = new StructureLearning();
+        FuzzyfikasiSegitiga f = new FuzzyfikasiSegitiga();
+        rawdata=d.getData(dir);
+        data=d.dataDouble(rawdata);
+
         
-//        try {
-//
-//            Workbook w = Workbook.getWorkbook(new File("src\\data\\BUNDESBANK-BBK01_WT5511.xls")); //ambil data
-//            Sheet sh = w.getSheet(2);               //sheet kedua
-//
-//            for (int i = 0; i < kolom; i++) {
-//                for (int j = 0; j < baris; j++) {
-//                    Cell c = sh.getCell(i, j);
-//                    String isi = c.getContents();
-//                    rawdata[i][j] = isi;
-//
-//                }
-//            }
-//        } catch (IOException ex) {
-//            Logger.getLogger(Nefprox.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (BiffException ex) {
-//            Logger.getLogger(Nefprox.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//                
-//
-//        
-//        for (int i = 0; i < kolom; i++) {
-//            for (int j = 0; j < baris; j++) {
-//                data[i][j] = Double.parseDouble(rawdata[i][j]);
-//            }
-//        }
-//        
-//        for (int i = 0; i < rawdata[1].length; i++) {
-//            for (int j = 0; j < rawdata.length; j++) {
-//                System.out.print(rawdata[j][i]+" ");
-//            }
-//            System.out.println("");
-//        }
-    
-       Data d = new Data();
-       rawdata=d.getData(dir);
-       data=d.normalisasi(rawdata);
-       
-        System.out.println("raw data");
-        for (int i = 0; i < rawdata[1].length; i++) {
-            for (int j = 0; j < rawdata.length; j++) {
-                System.out.print(i+". "+rawdata[j][i]+" ");
-            }
-            System.out.println("");
-        }
+        sl.inisialisasi();
         
-        System.out.println(" normalisasi");
-        for (int i = 0; i < data[1].length; i++) {
-            for (int j = 0; j < data.length; j++) {
-                System.out.print(i+". "+data[j][i]+" ");
-            }
-            System.out.println("");
-        }
-        System.out.println("done");
-        d.run();
+      
     }
     
 }
