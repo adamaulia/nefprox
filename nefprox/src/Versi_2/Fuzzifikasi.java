@@ -25,10 +25,13 @@ public class Fuzzifikasi {
     
     public double[] doFuzzy(double input){
         double []nilaiLinguistik = new double[3];
-//        nilaiLinguistik[0]=0;
-//        nilaiLinguistik[1]=0;
-//        nilaiLinguistik[2]=0;
         
+        //batas 0 : nilai minimal data (kaki pertama segitiga pertama)
+        //batas 1 : kaki pertama segitiga kedua
+        //batas 2 : kaki kedua segitiga pertama
+        //batas 3 : kaki pertama segitiga ketiga
+        //batas 4 : kaki kedua segitiga kedua
+        //batas 5 : nilai maksimal data (kaki kedua segitiga ketiga)
         
         double tengah = ((fk.getBatas(1)+fk.getBatas(4))/2) ;
         
