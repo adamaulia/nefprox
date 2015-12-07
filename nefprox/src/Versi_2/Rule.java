@@ -94,6 +94,8 @@ public class Rule {
 //        System.out.println("X1[0]"+X2[0]);
 //        System.out.println("X1[0]"+X3[0]);
         
+        //menentukan hasil variabel linguistik sedang,rendah,tinggi
+        
         if(tinggi==3){
             output[1]="tinggi";
         }else if(sedang==3){
