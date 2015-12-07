@@ -17,7 +17,8 @@ public class MainClass {
     static ArrayList<Rule> rules = new ArrayList<Rule>();
     static Fuzzifikasi fuzzy;
     static double[][] fuzzyinput;
-
+    static double LR=0.1;
+    
     public static void printRule() {
         String[][] tempRule;
         for (int i = 0; i < rules.size(); i++) {

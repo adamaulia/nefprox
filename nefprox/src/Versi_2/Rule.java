@@ -62,6 +62,8 @@ public class Rule {
         double d1,d2,d3;
         double [] tempdouble = new double[3];
         String [] output = new String [2];
+        String [] tempoutput = new String[3];
+        int rendah=0,sedang=0,tinggi=0;
         
         d1=Double.valueOf(X1[1]);
         d2=Double.valueOf(X2[1]);
@@ -74,13 +76,53 @@ public class Rule {
         Arrays.sort(tempdouble);
         output[0]=tempdouble[0]+"";
         
-        if(tempdouble[0]<0.3){
-            output[1]="Rendah";
-        }else if((tempdouble[0]>0.3)&&(tempdouble[0]<=0.6)){
-            output[1]="Sedang";
-        }else if(tempdouble[0]>0.6){
-            output[1]="Sedang";
+        tempoutput[0]=X1[0];
+        tempoutput[1]=X2[0];
+        tempoutput[2]=X3[0];
+        
+        for (int i = 0; i < tempoutput.length; i++) {
+            if(tempoutput[i]=="Rendah"){
+                rendah=rendah+1;
+            }else if(tempoutput[i]=="Sedang"){
+                sedang=sedang+1;
+            }else if(tempoutput[i]=="Tinggi"){
+                tinggi=tinggi+1;
+            }
         }
+        
+//        System.out.println("X1[0]"+X1[0]);
+//        System.out.println("X1[0]"+X2[0]);
+//        System.out.println("X1[0]"+X3[0]);
+        
+        if(tinggi==3){
+            output[1]="tinggi";
+        }else if(sedang==3){
+            output[1]="sedang";
+        }else if(rendah==3){
+            output[1]="rendah";
+        }else if((rendah==2)&&(sedang==1)){
+            output[1]="rendah";
+        }else if((sedang==2)&&(rendah==1)){
+            output[1]="sedang";
+        }else if((sedang==2)&&(tinggi==1)){
+            output[1]="sedang";
+        }else if((tinggi==2)&&(sedang==1)){
+            output[1]="tinggi";
+        }else if((rendah==2)&&(tinggi==1)){
+            output[1]="sedang";
+        }else if((tinggi==2)&&(rendah==1)){
+            output[1]="tinggi";
+        }
+        
+        
+//        if(tempdouble[0]<0.3){
+//            output[1]="Rendah";
+//        }else if((tempdouble[0]>0.3)&&(tempdouble[0]<=0.6)){
+//            output[1]="Sedang";
+//        }else if(tempdouble[0]>0.6){
+//            output[1]="Sedang";
+//        }
+        
         
         
         return output;
