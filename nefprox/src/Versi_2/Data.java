@@ -8,6 +8,7 @@ package Versi_2;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import jxl.Cell;
@@ -22,6 +23,7 @@ import nefprox.Nefprox;
  */
 public class Data {
     double[] value;
+    ArrayList<Double> as = new ArrayList<>();
     int numrow=0;
     double min=0;
     double max=0;
@@ -33,12 +35,16 @@ public class Data {
             Sheet sh = w.getSheet(0);               //sheet kedua
             numrow = sh.getRows();
             value = new double[numrow];
+            
 
             for (int i = 0; i < numrow-1; i++) {
                     Cell c = sh.getCell(1, i+1);
                     double tempData = Double.parseDouble(c.getContents());
+                    as.add(tempData);
                     value[i]=(tempData);
             }
+            
+            
         } catch (IOException ex) {
             Logger.getLogger(Nefprox.class.getName()).log(Level.SEVERE, null, ex);
         } catch (BiffException ex) {
@@ -47,16 +53,9 @@ public class Data {
     }
     
     public void setMaxMin(){
-        max = value[1];
-        min = value[1];
-        for (int i = 0; i < numrow; i++) {
-            if (value[i] > max) {
-                max = value[i];
-            }
-            if (value[i] < min) {
-                min = value[i];
-            }
-        }
+        Collections.sort(as);
+        max = as.get(as.size()-1);
+        min = as.get(0);
     }
     
     public double getMax(){

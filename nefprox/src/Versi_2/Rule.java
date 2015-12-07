@@ -5,6 +5,8 @@
  */
 package Versi_2;
 
+import java.util.Arrays;
+
 /**
  *
  * @author mickeyMice
@@ -21,14 +23,16 @@ public class Rule {
         x1 = Choose(input1);
         x2 = Choose(input2);
         x3 = Choose(input3);
-        target = Choose(input4);
+        //target = Choose(input4);
+       target=konsekuen(x1,x2,x3);
     }
     
     public void setRule(double[] input1,double[] input2,double[] input3,double[] input4){
         x1 = Choose(input1);
         x2 = Choose(input2);
         x3 = Choose(input3);
-        target = Choose(input4);
+        //target = Choose(input4);
+        target=konsekuen(x1,x2,x3);
     }
     
     public String[] Choose(double[] input){
@@ -52,6 +56,34 @@ public class Rule {
         temp[1]=String.valueOf(max);
         return temp;
         
+    }
+    
+    public String[] konsekuen(String[] X1, String[] X2,String[] X3){
+        double d1,d2,d3;
+        double [] tempdouble = new double[3];
+        String [] output = new String [2];
+        
+        d1=Double.valueOf(X1[1]);
+        d2=Double.valueOf(X2[1]);
+        d3=Double.valueOf(X3[1]);
+        
+        tempdouble[0]=d1;
+        tempdouble[1]=d2;
+        tempdouble[2]=d3;
+        
+        Arrays.sort(tempdouble);
+        output[0]=tempdouble[0]+"";
+        
+        if(tempdouble[0]<0.3){
+            output[1]="Rendah";
+        }else if((tempdouble[0]>0.3)&&(tempdouble[0]<=0.6)){
+            output[1]="Sedang";
+        }else if(tempdouble[0]>0.6){
+            output[1]="Sedang";
+        }
+        
+        
+        return output;
     }
     
     public String[][] getRule(){
