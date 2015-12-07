@@ -21,8 +21,10 @@ public class MainClass {
     
     public static void printRule() {
         String[][] tempRule;
+//        System.out.println(rules.size());
         for (int i = 0; i < rules.size(); i++) {
             tempRule = rules.get(i).getRule();
+//            System.out.println(tempRule[0][1]+" "+tempRule[1][1]+" "+tempRule[2][1]+" "+tempRule[3][0]);
             String temp = i + " : IF X1=" + tempRule[0][0] + "(" + tempRule[0][1] + ") AND X2=" + tempRule[1][0] + "(" + tempRule[1][1] + ") AND X3=" + tempRule[2][0] + "(" + tempRule[2][1] + ") THEN " + tempRule[3][0] + "(" + tempRule[3][1] + ")";
             System.out.println(temp);
         }
@@ -60,12 +62,10 @@ public class MainClass {
     }
 
     public static void makeRule() {
-        Rule tempRule;
-        boolean temp;
         for (int i = 0; i < fuzzyinput.length - 3; i++) {
-            tempRule = new Rule();
+            Rule tempRule = new Rule();
             tempRule.setRule(fuzzyinput[i], fuzzyinput[i + 1], fuzzyinput[i + 2], fuzzyinput[i + 3]);
-            temp = checkRule(tempRule);
+            boolean temp = checkRule(tempRule);
             if (temp == false) {
                 rules.add(tempRule);
             }

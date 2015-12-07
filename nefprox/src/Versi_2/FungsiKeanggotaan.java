@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * @author mickeyMice
  */
 public class FungsiKeanggotaan {
-    double[] batas = new double[6];
+    private double[] batas = new double[6];
 //    double[][] nilai = new double[3][2];
     
     public FungsiKeanggotaan (){}

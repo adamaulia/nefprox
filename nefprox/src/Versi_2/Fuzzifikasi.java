@@ -10,11 +10,11 @@ package Versi_2;
  * @author mickeyMice
  */
 public class Fuzzifikasi {   
-    FungsiKeanggotaan fk;
-    double output[]=new double[3];
-    int rownum = 0;
-    double maxValue;
-    double minValue;
+    private FungsiKeanggotaan fk;
+    private double output[]=new double[3];
+    private int rownum = 0;
+    private double maxValue;
+    private double minValue;
     
     public Fuzzifikasi(FungsiKeanggotaan temp, double max,double min){
         fk = temp;
