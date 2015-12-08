@@ -121,26 +121,7 @@ public class Rule {
             output[1]="tinggi";
 
 
-        if (tinggi == 3) {
-            output[1] = "Tinggi";
-        } else if (sedang == 3) {
-            output[1] = "Sedang";
-        } else if (rendah == 3) {
-            output[1] = "Rendah";
-        } else if ((rendah == 2) && (sedang == 1)) {
-            output[1] = "Rendah";
-        } else if ((sedang == 2) && (rendah == 1)) {
-            output[1] = "Sedang";
-        } else if ((sedang == 2) && (tinggi == 1)) {
-            output[1] = "Sedang";
-        } else if ((tinggi == 2) && (sedang == 1)) {
-            output[1] = "Tinggi";
-        } else if ((rendah == 2) && (tinggi == 1)) {
-            output[1] = "Sedang";
-        } else if ((tinggi == 2) && (rendah == 1)) {
-            output[1] = "Tinggi";
-
-        }
+      
 
 //        if(tempdouble[0]<0.3){
 //            output[1]="Rendah";

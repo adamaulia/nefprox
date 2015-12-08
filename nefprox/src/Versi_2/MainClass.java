@@ -120,15 +120,16 @@ public class MainClass {
 
     public static void main(String[] args) {
         Data data = new Data();
+        Defuzzyfikasi df = new Defuzzyfikasi();
         data.loadData("src\\data\\BUNDESBANK-BBK01_WT5511.xls");
         data.setMaxMin();
 
         FungsiKeanggotaan fk = new FungsiKeanggotaan();
         fk.setBatas(0, data.getMin());
         fk.setBatas(1, 267);
-        fk.setBatas(2, 732);
-        fk.setBatas(3, 965);
-        fk.setBatas(4, 1431);
+        fk.setBatas(2, 650);
+        fk.setBatas(3, 800);
+        fk.setBatas(4, 1200);
         fk.setBatas(5, data.getMax());
 
         fuzzy = new Fuzzifikasi(fk, data.getMax(), data.getMin());
@@ -136,6 +137,15 @@ public class MainClass {
         makeRule();
         shareWeight();
         printRule();
+        
+        
+        //coba defuzzyfikasi
+        double tdf1,tdf2;
+        tdf1=0.6;
+        tdf2=1.0;
+        System.out.println("df1 " +df.dodefuzyfikasi(tdf1));
+        System.out.println("df2 " +df.dodefuzyfikasi(tdf2));
+        
     }
 
 }

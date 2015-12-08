@@ -13,10 +13,23 @@ package Versi_2;
 public class Defuzzyfikasi {
     
     private double output;
-    private double []crips={0,10,20,30,40,50,60,70,80,90,100}; //y
+    private double []crips={10,20,30,40,50,60,70,80,90,100}; //y
+    
+    public Defuzzyfikasi(){}
     
     public Defuzzyfikasi(double input){        
         dodefuzyfikasi(input);
+    }
+    
+    public double doSugeno(double input){
+        double output = 0;
+        double rendah = 40;
+        double sedang = 60;
+        double tinggi = 80;
+        
+        //output = ((rendah*input)+(sedang*input)+(tinggi*input)/());
+        
+        return output;
     }
     
     
