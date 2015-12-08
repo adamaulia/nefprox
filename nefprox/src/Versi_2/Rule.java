@@ -95,7 +95,7 @@ public class Rule {
 //    }
     
     public String[] Choose(double[] input) {
-        double max = input[0];
+        double max = 0;
         int idx = 0;
         String temp[] = new String[2];
         for (int i = 0; i < input.length; i++) {
@@ -103,6 +103,7 @@ public class Rule {
                 max = input[i];
                 idx = i;
             }
+//            System.out.println(input[i]);
         }
         if (idx == 0) {
             temp[0] = "Rendah";
@@ -111,7 +112,7 @@ public class Rule {
         } else {
             temp[0] = "Tinggi";
         }
-
+//        System.out.println(max);
         temp[1] = String.valueOf(max);
         return temp;
 

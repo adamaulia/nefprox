@@ -28,20 +28,37 @@ public class Data {
     double min=0;
     double max=0;
     
-    public void loadData(String dir){
+    public void loadData(String dir,int jenis){
         try {
-
+            int start,finish;
             Workbook w = Workbook.getWorkbook(new File(dir)); //ambil data
             Sheet sh = w.getSheet(0);               //sheet kedua
             numrow = sh.getRows();
-            value = new double[numrow];
             
-
-            for (int i = 0; i < numrow-1; i++) {
+            
+            if(jenis==0){
+                start=0;
+                finish=numrow-3;
+            }else if(jenis==1){
+                start=1;
+                finish=numrow-2;
+            }else if(jenis==2){
+                start=2;
+                finish=numrow-1;
+            }else{
+                start=3;
+                finish=numrow;
+            }
+            System.out.println(start);
+            System.out.println(finish);
+            value = new double[finish-start];
+            int j=0;
+            for (int i = start; i <finish-1; i++) {
                     Cell c = sh.getCell(1, i+1);
                     double tempData = Double.parseDouble(c.getContents());
                     as.add(tempData);
-                    value[i]=(tempData);
+                    value[j]=(tempData);
+                    j++;
             }
             
             
@@ -56,8 +73,8 @@ public class Data {
         Collections.sort(as);
         max = as.get(as.size()-1);
         min = as.get(0);
-        System.out.println("max = "+max);
-        System.out.println("min = "+min);
+//        System.out.println("max = "+max);
+//        System.out.println("min = "+min);
     }
     
     public double getMax(){

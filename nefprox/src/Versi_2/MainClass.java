@@ -15,9 +15,11 @@ import java.util.ArrayList;
 public class MainClass {
 
     static ArrayList<Rule> rules = new ArrayList<Rule>();
-    static Fuzzifikasi fuzzy;
-    static double[][] fuzzyinput;
+    static Fuzzifikasi fuzzy[] = new Fuzzifikasi[4];
+    static double[][][] fuzzyinput =new double[4][][];
     static double LR = 0.1;
+    static Data data[] = new Data[4];
+    static FungsiKeanggotaan fk[] = new FungsiKeanggotaan[4];
 
     public static void printRule() {
         String[][] tempRule;
@@ -61,13 +63,15 @@ public class MainClass {
     }
 
     public static void makeRule() {
-        for (int i = 0; i < fuzzyinput.length - 3; i++) {
+        System.out.println("xxx : "+fuzzyinput[1].length);
+        for (int i = 0; i < fuzzyinput[1].length - 3; i++) {
             Rule tempRule = new Rule();
 //            tempRule.setRule(fuzzyinput[i], fuzzyinput[i + 1], fuzzyinput[i + 2], fuzzyinput[i + 3]);
-            double[] x1 = fuzzyinput[i];
-            double[] x2 = fuzzyinput[i + 1];
-            double[] x3 = fuzzyinput[i + 2];
-            double[] target = fuzzyinput[i + 3];
+            double[] x1 = fuzzyinput[0][i];
+            double[] x2 = fuzzyinput[1][i];
+            double[] x3 = fuzzyinput[2][i];
+            double[] target = fuzzyinput[3][i];
+            
             tempRule.setRule(x1, x2, x3, target);
             boolean temp = checkRule(tempRule);
             if (temp == false) {
@@ -80,11 +84,13 @@ public class MainClass {
         }
     }
 
-    public static void makeFuzzyInput(double[] input) {
-        fuzzyinput = new double[input.length][3];
+    public static double[][] makeFuzzyInput(double[] input, Fuzzifikasi fuzzyinput) {
+        double[][] tempFuzzy = new double[input.length][3];
+//        fuzzyinput = new double[input.length][3];
         for (int i = 0; i < input.length; i++) {
-            fuzzyinput[i] = fuzzy.doFuzzy(input[i]);
+            tempFuzzy[i] = fuzzyinput.doFuzzy(input[i]);
         }
+        return tempFuzzy;
     }
 
     public static void shareWeight1() {
@@ -148,21 +154,33 @@ public class MainClass {
         }
     }
 
+    public static void makeAll(int idx) {
+        data[idx]=new Data();
+        data[idx].loadData("src\\data\\BUNDESBANK-BBK01_WT5511.xls", idx);
+        data[idx].setMaxMin();
+        
+        
+        fk[idx] = new FungsiKeanggotaan();
+        fk[idx].setBatas(0, data[idx].getMin());
+        fk[idx].setBatas(1, 267);
+        fk[idx].setBatas(2, 732);
+        fk[idx].setBatas(3, 965);
+        fk[idx].setBatas(4, 1431);
+        fk[idx].setBatas(5, data[idx].getMax());
+        
+        fuzzy[idx] = new Fuzzifikasi(fk[idx], data[idx].getMax(), data[idx].getMin());
+        
+        fuzzyinput[idx] = new double[data[idx].getNumRow()-3][3];
+        fuzzyinput[idx] = makeFuzzyInput(data[idx].getAllData(), fuzzy[idx]);
+    }
+
     public static void main(String[] args) {
-        Data data = new Data();
-        data.loadData("src\\data\\BUNDESBANK-BBK01_WT5511.xls");
-        data.setMaxMin();
 
-        FungsiKeanggotaan fk = new FungsiKeanggotaan();
-        fk.setBatas(0, data.getMin());
-        fk.setBatas(1, 267);
-        fk.setBatas(2, 732);
-        fk.setBatas(3, 965);
-        fk.setBatas(4, 1431);
-        fk.setBatas(5, data.getMax());
-
-        fuzzy = new Fuzzifikasi(fk, data.getMax(), data.getMin());
-        makeFuzzyInput(data.getAllData());
+        makeAll(0);
+        makeAll(1);
+        makeAll(2);
+        makeAll(3);
+        
         makeRule();
         shareWeight1();
         shareWeight2();

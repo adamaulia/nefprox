@@ -12,13 +12,13 @@ package Versi_2;
 public class Fuzzifikasi {   
     private FungsiKeanggotaan fk;
     private double output[]=new double[3];
-    private int rownum = 0;
+//    private int rownum = 0;
     private double maxValue;
     private double minValue;
     
     public Fuzzifikasi(FungsiKeanggotaan temp, double max,double min){
         fk = temp;
-        this.rownum = rownum;
+//        this.rownum = rownum;
         maxValue=max;
         minValue=min;
     }
