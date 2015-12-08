@@ -96,7 +96,7 @@ public class Rule {
 //        System.out.println("X1[0]"+X1[0]);
 //        System.out.println("X1[0]"+X2[0]);
 //        System.out.println("X1[0]"+X3[0]);
-<<<<<<< HEAD
+
 
         
         //menentukan hasil variabel linguistik sedang,rendah,tinggi
@@ -120,8 +120,7 @@ public class Rule {
         }else if((tinggi==2)&&(rendah==1)){
             output[1]="tinggi";
 
-=======
->>>>>>> origin/master
+
         if (tinggi == 3) {
             output[1] = "Tinggi";
         } else if (sedang == 3) {
@@ -140,10 +139,7 @@ public class Rule {
             output[1] = "Sedang";
         } else if ((tinggi == 2) && (rendah == 1)) {
             output[1] = "Tinggi";
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
         }
 
 //        if(tempdouble[0]<0.3){
@@ -153,13 +149,13 @@ public class Rule {
 //        }else if(tempdouble[0]>0.6){
 //            output[1]="Sedang";
 //        }
-<<<<<<< HEAD
+
         
         }
-		return output;
-=======
+		
+
         return output;
->>>>>>> origin/master
+
     }
 
     public String[][] getRule() {
