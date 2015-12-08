@@ -16,10 +16,11 @@ public class MainClass {
 
     static ArrayList<Rule> rules = new ArrayList<Rule>();
     static Fuzzifikasi fuzzy[] = new Fuzzifikasi[4];
-    static double[][][] fuzzyinput =new double[4][][];
+    static double[][][] fuzzyinput = new double[4][][];
     static double LR = 0.1;
     static Data data[] = new Data[4];
     static FungsiKeanggotaan fk[] = new FungsiKeanggotaan[4];
+    static double[] bobot, sharedWeightRO = new double[3];
 
     public static void printRule() {
         String[][] tempRule;
@@ -63,7 +64,7 @@ public class MainClass {
     }
 
     public static void makeRule() {
-        System.out.println("xxx : "+fuzzyinput[1].length);
+        System.out.println("xxx : " + fuzzyinput[1].length);
         for (int i = 0; i < fuzzyinput[1].length - 3; i++) {
             Rule tempRule = new Rule();
 //            tempRule.setRule(fuzzyinput[i], fuzzyinput[i + 1], fuzzyinput[i + 2], fuzzyinput[i + 3]);
@@ -71,7 +72,7 @@ public class MainClass {
             double[] x2 = fuzzyinput[1][i];
             double[] x3 = fuzzyinput[2][i];
             double[] target = fuzzyinput[3][i];
-            
+
             tempRule.setRule(x1, x2, x3, target);
             boolean temp = checkRule(tempRule);
             if (temp == false) {
@@ -149,17 +150,27 @@ public class MainClass {
                     }
                     rules.get(i).getRule()[3][1] = max;
                     rules.get(j).getRule()[3][1] = max;
+//                    System.out.println(max);
+                    if (tempRule1[3][0].equals("Rendah")) {
+                        sharedWeightRO[0] = Double.parseDouble(max);
+//                        System.out.println(sharedWeightRO[0]);
+                    } else if (tempRule1[3][0].equals("Sedang")) {
+                        sharedWeightRO[1] = Double.parseDouble(max);
+//                        System.out.println(sharedWeightRO[1]);
+                    } else if (tempRule1[3][0].equals("Tinggi")) {
+                        sharedWeightRO[2] = Double.parseDouble(max);
+//                        System.out.println(sharedWeightRO[2]);
+                    }
                 }
             }
         }
     }
 
     public static void makeAll(int idx) {
-        data[idx]=new Data();
+        data[idx] = new Data();
         data[idx].loadData("src\\data\\BUNDESBANK-BBK01_WT5511.xls", idx);
         data[idx].setMaxMin();
-        
-        
+
         fk[idx] = new FungsiKeanggotaan();
         fk[idx].setBatas(0, data[idx].getMin());
         fk[idx].setBatas(1, 267);
@@ -167,11 +178,29 @@ public class MainClass {
         fk[idx].setBatas(3, 965);
         fk[idx].setBatas(4, 1431);
         fk[idx].setBatas(5, data[idx].getMax());
-        
+
         fuzzy[idx] = new Fuzzifikasi(fk[idx], data[idx].getMax(), data[idx].getMin());
-        
-        fuzzyinput[idx] = new double[data[idx].getNumRow()-3][3];
+
+        fuzzyinput[idx] = new double[data[idx].getNumRow() - 3][3];
         fuzzyinput[idx] = makeFuzzyInput(data[idx].getAllData(), fuzzy[idx]);
+    }
+
+    public static void setBobotRuleToOutput() {
+        bobot = new double[rules.size()];
+        for (int i = 0; i < bobot.length; i++) {
+            String kons = rules.get(i).getKonsekuen();
+            if (kons.equals("Rendah")) {
+                bobot[i] = sharedWeightRO[0];
+            } else if (kons.equals("Sedang")) {
+                bobot[i] = sharedWeightRO[1];
+            } else if (kons.equals("Tinggi")) {
+                bobot[i] = sharedWeightRO[2];
+            }
+//            System.out.println(bobot[i]);
+        }
+        System.out.println("1: "+sharedWeightRO[0]);
+        System.out.println("2: "+sharedWeightRO[1]);
+        System.out.println("3: "+sharedWeightRO[2]);
     }
 
     public static void main(String[] args) {
@@ -180,10 +209,12 @@ public class MainClass {
         makeAll(1);
         makeAll(2);
         makeAll(3);
-        
+
         makeRule();
         shareWeight1();
         shareWeight2();
+        
+        setBobotRuleToOutput();
         printRule();
     }
 

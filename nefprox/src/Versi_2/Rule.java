@@ -22,6 +22,7 @@ public class Rule {
     private String[] target = new String[2];
     private String[] konsekuen = new String[2];
     static String[][] staticRule = new String[27][3];
+    private double sharedWeight, errorOutput;
 
     public Rule() {
     }
@@ -197,5 +198,18 @@ public class Rule {
     }
     
     public void setX1(String nilai){
+    }
+    
+    public double getValueKonsekuen() {
+        return Double.valueOf(target[1]);
+    }
+    
+    public String getKonsekuen(){
+        return target[0];
+    }
+    
+    public double getErrorRule(){
+        double outputRule = Double.parseDouble(target[1]);
+        return outputRule * (1 - outputRule) * (2 * sharedWeight - 1) * Math.abs(errorOutput);
     }
 }
