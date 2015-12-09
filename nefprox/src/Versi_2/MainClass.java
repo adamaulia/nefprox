@@ -17,8 +17,8 @@ public class MainClass {
     static ArrayList<Rule> rules = new ArrayList<Rule>();
     static Fuzzifikasi fuzzy;
     static double[][] fuzzyinput;
-    static double LR=0.1;
-    
+    static double LR = 0.1;
+
     public static void printRule() {
         String[][] tempRule;
 //        System.out.println(rules.size());
@@ -39,8 +39,7 @@ public class MainClass {
             String[][] tempRule = rules.get(i).getRule();
             if ((tempRuleInput[0][0].equals(tempRule[0][0]))
                     && (tempRuleInput[1][0].equals(tempRule[1][0]))
-                    && (tempRuleInput[2][0].equals(tempRule[2][0]))
-//                    && (tempRuleInput[3][0].equals(tempRule[3][0]))
+                    && (tempRuleInput[2][0].equals(tempRule[2][0])) //                    && (tempRuleInput[3][0].equals(tempRule[3][0]))
                     ) {
 
                 temp = true;
@@ -64,10 +63,19 @@ public class MainClass {
     public static void makeRule() {
         for (int i = 0; i < fuzzyinput.length - 3; i++) {
             Rule tempRule = new Rule();
-            tempRule.setRule(fuzzyinput[i], fuzzyinput[i + 1], fuzzyinput[i + 2], fuzzyinput[i + 3]);
+//            tempRule.setRule(fuzzyinput[i], fuzzyinput[i + 1], fuzzyinput[i + 2], fuzzyinput[i + 3]);
+            double[] x1 = fuzzyinput[i];
+            double[] x2 = fuzzyinput[i + 1];
+            double[] x3 = fuzzyinput[i + 2];
+            double[] target = fuzzyinput[i + 3];
+            tempRule.setRule(x1, x2, x3, target);
             boolean temp = checkRule(tempRule);
             if (temp == false) {
                 rules.add(tempRule);
+//                System.out.println(tempRule.getRule()[0][1]);
+//                System.out.println(tempRule.getRule()[1][1]);
+//                System.out.println(tempRule.getRule()[2][1]);
+//                System.out.println("");
             }
         }
     }
@@ -79,7 +87,7 @@ public class MainClass {
         }
     }
 
-    public static void shareWeight() {
+    public static void shareWeight1() {
         for (int i = 0; i < rules.size(); i++) {
             String[][] tempRule1 = rules.get(i).getRule();
             for (int j = 0; j < rules.size(); j++) {
@@ -93,6 +101,7 @@ public class MainClass {
                     }
                     rules.get(i).getRule()[0][1] = max;
                     rules.get(j).getRule()[0][1] = max;
+
                 }
 
                 if (tempRule1[1][0].equals(tempRule2[1][0])) {
@@ -114,6 +123,27 @@ public class MainClass {
                     rules.get(i).getRule()[2][1] = max;
                     rules.get(j).getRule()[2][1] = max;
                 }
+                rules.get(i).getRule()[3][1] = rules.get(i).setKonsekuen(rules.get(i).getRule()[0], rules.get(i).getRule()[1], rules.get(i).getRule()[2])[1];
+
+            }
+        }
+    }
+
+    public static void shareWeight2() {
+        for (int i = 0; i < rules.size(); i++) {
+            String[][] tempRule1 = rules.get(i).getRule();
+            for (int j = 0; i < rules.size(); i++) {
+                String max;
+                String[][] tempRule2 = rules.get(j).getRule();
+                if (tempRule1[3][0].equals(tempRule2[3][0])) {
+                    if (Double.parseDouble(tempRule1[3][1]) > Double.parseDouble(tempRule2[3][1])) {
+                        max = tempRule1[3][1];
+                    } else {
+                        max = tempRule2[3][1];
+                    }
+                    rules.get(i).getRule()[3][1] = max;
+                    rules.get(j).getRule()[3][1] = max;
+                }
             }
         }
     }
@@ -127,15 +157,16 @@ public class MainClass {
         FungsiKeanggotaan fk = new FungsiKeanggotaan();
         fk.setBatas(0, data.getMin());
         fk.setBatas(1, 267);
-        fk.setBatas(2, 650);
-        fk.setBatas(3, 800);
-        fk.setBatas(4, 1200);
+        fk.setBatas(2, 732);
+        fk.setBatas(3, 965);
+        fk.setBatas(4, 1431);
         fk.setBatas(5, data.getMax());
 
         fuzzy = new Fuzzifikasi(fk, data.getMax(), data.getMin());
         makeFuzzyInput(data.getAllData());
         makeRule();
-        shareWeight();
+        shareWeight1();
+        shareWeight2();
         printRule();
         
         

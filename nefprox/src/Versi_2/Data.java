@@ -56,6 +56,8 @@ public class Data {
         Collections.sort(as);
         max = as.get(as.size()-1);
         min = as.get(0);
+        System.out.println("max = "+max);
+        System.out.println("min = "+min);
     }
     
     public double getMax(){
