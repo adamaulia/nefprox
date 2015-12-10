@@ -22,6 +22,7 @@ public class Rule {
     private String[] target = new String[2];
     private String[] konsekuen = new String[2];
     static String[][] staticRule = new String[27][3];
+    private double sharedWeight, errorOutput;
 
     public Rule() {
     }
@@ -95,7 +96,7 @@ public class Rule {
 //    }
     
     public String[] Choose(double[] input) {
-        double max = input[0];
+        double max = 0;
         int idx = 0;
         String temp[] = new String[2];
         for (int i = 0; i < input.length; i++) {
@@ -103,6 +104,7 @@ public class Rule {
                 max = input[i];
                 idx = i;
             }
+//            System.out.println(input[i]);
         }
         if (idx == 0) {
             temp[0] = "Rendah";
@@ -111,7 +113,7 @@ public class Rule {
         } else {
             temp[0] = "Tinggi";
         }
-
+//        System.out.println(max);
         temp[1] = String.valueOf(max);
         return temp;
 
@@ -199,5 +201,18 @@ public class Rule {
     }
     
     public void setX1(String nilai){
+    }
+    
+    public double getValueKonsekuen() {
+        return Double.valueOf(target[1]);
+    }
+    
+    public String getKonsekuen(){
+        return target[0];
+    }
+    
+    public double getErrorRule(){
+        double outputRule = Double.parseDouble(target[1]);
+        return outputRule * (1 - outputRule) * (2 * sharedWeight - 1) * Math.abs(errorOutput);
     }
 }
