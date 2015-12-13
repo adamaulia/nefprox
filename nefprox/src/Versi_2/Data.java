@@ -92,4 +92,11 @@ public class Data {
     public double[] getAllData(){
         return value;
     }
+    
+    public double Denormalisasi(double input){
+        double denorm = 0;
+        
+            denorm=((input-0.1)/(0.9-0.1))*(getMax()-getMin())+getMin();
+        return denorm;
+    }
 }

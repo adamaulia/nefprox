@@ -180,6 +180,12 @@ public double[][] normalisasi(String[][] rawdata){
 
     }
 
+    public double Denormalisasi(double input){
+        double denorm = 0;
+        
+            denorm=((input-0.1)/(0.9-0.1));
+        return denorm;
+    }
     
     public void run(){
         System.out.println("max1 "+max1);
