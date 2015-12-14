@@ -22,9 +22,6 @@ public class Fuzzy {
     public void setFK(FungsiKeanggotaan fk){
         this.fk = fk;
     }
-    public Fuzzy(FungsiKeanggotaan temp){
-        fk = temp;
-    }
     
     public double[] fuzzyfikasi(double input){
         double[] tempOutput = new double[3];
@@ -68,29 +65,26 @@ public class Fuzzy {
         return tempOutput;
     }
     
-    public double dodefuzyfikasi(double[] input){
-        double tempRendah=0;
-        double tempSedang=0;
-        double tempTinggi=0;
-        double output;
-        //rendah 10,20,30
-        //sedang 40,50,60,70
-        //tinggi 80,90,100
+    public double defuzzyfikasi(double[] input){
+        double tempRendah=0; //10,20,30
+        double tempSedang=0; //40,50,60,70
+        double tempTinggi=0; //80,90,100
         
-        for (int i = 0; i <=100; i+=10) {
-            if(i<40){
-                tempRendah = tempRendah+tempRendah*input[0]; //rendah
-            }if (i >=40 && i<80){
-                tempSedang = tempSedang+tempSedang*input[1]; //sedang
-            }
-            if(i >=80){
-                tempTinggi = tempTinggi+tempTinggi*input[2]; //tinggi
-            }
-        }
+        double temp=0;
+        
+        for (int i = 10; i <=100; i+=10) {
             
-        
-        output=tempRendah+tempSedang+tempTinggi/((input[0]*3)+(input[1]*4)+(input[2]*3));
-        return output; 
+            if(i<=40){
+                tempRendah=tempRendah+input[0]*i;
+            }else if( i> 40 && i<=70){
+                tempRendah=tempSedang+input[1]*i;            
+            }else if(i> 70 && i<=100){
+                tempTinggi=tempTinggi+input[2]*i;
+            }
+            
+            
+            }
+        return temp=tempRendah+tempSedang+tempTinggi/input[0]*3+input[1]*4+input[2]*3;
     }
     
 }
