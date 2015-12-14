@@ -70,7 +70,7 @@ public class Data {
     
     public void setMaxMin(){
         Arrays.sort(value);
-        max = value[value.length-1];
+        max = value[numrow];
         min = value[0];
 //        System.out.println("max = "+max);
 //        System.out.println("min = "+min);
