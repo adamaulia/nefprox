@@ -39,13 +39,13 @@ public class Nefprox {
         
         String dir="src\\data\\BUNDESBANK-BBK01_WT5511.xls";
         Data d = new Data();
-        StructureLearning sl = new StructureLearning();
-        FuzzyfikasiSegitiga f = new FuzzyfikasiSegitiga();
+       // StructureLearning sl = new StructureLearning();
+        //FuzzyfikasiSegitiga f = new FuzzyfikasiSegitiga();
         rawdata=d.getData(dir);
         data=d.dataDouble(rawdata);
-
+        d.normalisasi(rawdata);
         
-        sl.inisialisasi();
+        //sl.inisialisasi();
         
       
     }

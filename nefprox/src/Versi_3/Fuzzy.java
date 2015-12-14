@@ -22,6 +22,9 @@ public class Fuzzy {
     public void setFK(FungsiKeanggotaan fk){
         this.fk = fk;
     }
+    public Fuzzy(FungsiKeanggotaan temp){
+        fk = temp;
+    }
     
     public double[] fuzzyfikasi(double input){
         double[] tempOutput = new double[3];

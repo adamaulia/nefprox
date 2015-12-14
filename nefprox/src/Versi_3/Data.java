@@ -29,40 +29,39 @@ public class Data {
     int numrow = 0;
     double min = 0;
     double max = 0;
-    int finish, start;
+    int finish,start;
 
     public void loadData(String dir, int jenis) {
         try {
             int start, finish;
             Workbook w = Workbook.getWorkbook(new File(dir)); //ambil data
             Sheet sh = w.getSheet(0);               //sheet kedua
-            numrow = sh.getRows() - 1;
+            numrow = sh.getRows();
 
             if (jenis == 0) {
-                start = 1;
+                start = 0;
                 finish = numrow - 3;
             } else if (jenis == 1) {
-                start = 2;
+                start = 1;
                 finish = numrow - 2;
             } else if (jenis == 2) {
-                start = 3;
+                start = 2;
                 finish = numrow - 1;
             } else {
-                start = 4;
+                start = 3;
                 finish = numrow;
             }
 
-            value = new double[(finish - start) + 1];
+            value = new double[finish - start];
             int j = 0;
-            for (int i = start; i <=finish; i++) {
-                Cell c = sh.getCell(1, i);
+            for (int i = start; i < finish - 1; i++) {
+                Cell c = sh.getCell(1, i + 1);
                 double tempData = Double.parseDouble(c.getContents());
+
                 value[j] = (tempData);
                 j++;
             }
-            setMaxMin();
             normalisasi();
-            setMaxMin();
 
         } catch (IOException ex) {
             Logger.getLogger(Nefprox.class.getName()).log(Level.SEVERE, null, ex);
@@ -72,10 +71,11 @@ public class Data {
     }
 
     public void setMaxMin() {
-        double temp[] = value;
-        Arrays.sort(temp);
-        max = temp[value.length - 1];
-        min = temp[0];
+        Arrays.sort(value);
+        max = value[numrow];
+        min = value[0];
+//        System.out.println("max = "+max);
+//        System.out.println("min = "+min);
     }
 
     public double getMax() {
@@ -95,13 +95,10 @@ public class Data {
     }
 
     public void normalisasi() {
-        double batasMax = 0.9;
-        double batasMin = 0.1;
-        double temp[]=new double[numrow-3];
-        for (int i = 0; i <(numrow-3); i++) {
-            temp[i] = (((value[i] - min) / (max - min)) * (batasMax - batasMin) + batasMin);
+        double batasMax=0.9;
+        double batasMin=0.1;
+        for (int i = 0; i < (finish - start); i++) {
+            value[i] = (((value[i] - min) / (max - min)) * (batasMax - batasMin) + batasMin);
         }
-        value = temp;
     }
-    
 }

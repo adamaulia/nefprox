@@ -21,6 +21,9 @@ public class MainClass {
     static Data data[] = new Data[4];
     static FungsiKeanggotaan fk[] = new FungsiKeanggotaan[4];
     static double[] bobot, sharedWeightRO = new double[3];
+    static double[] targettt;
+
+    static VarOutput vo;
 
     public static void printRule() {
         String[][] tempRule;
@@ -64,7 +67,7 @@ public class MainClass {
     }
 
     public static void makeRule() {
-        System.out.println("xxx : " + fuzzyinput[1].length);
+//        System.out.println("xxx : " + fuzzyinput[1].length);
         for (int i = 0; i < fuzzyinput[1].length - 3; i++) {
             Rule tempRule = new Rule();
 //            tempRule.setRule(fuzzyinput[i], fuzzyinput[i + 1], fuzzyinput[i + 2], fuzzyinput[i + 3]);
@@ -139,7 +142,7 @@ public class MainClass {
     public static void shareWeight2() {
         for (int i = 0; i < rules.size(); i++) {
             String[][] tempRule1 = rules.get(i).getRule();
-            for (int j = 0; i < rules.size(); i++) {
+            for (int j = 0; j < rules.size(); j++) {
                 String max;
                 String[][] tempRule2 = rules.get(j).getRule();
                 if (tempRule1[3][0].equals(tempRule2[3][0])) {
@@ -151,13 +154,16 @@ public class MainClass {
                     rules.get(i).getRule()[3][1] = max;
                     rules.get(j).getRule()[3][1] = max;
 //                    System.out.println(max);
+//                    System.out.println(tempRule1[3][0]);
                     if (tempRule1[3][0].equals("Rendah")) {
                         sharedWeightRO[0] = Double.parseDouble(max);
 //                        System.out.println(sharedWeightRO[0]);
-                    } else if (tempRule1[3][0].equals("Sedang")) {
+                    }
+                    if (tempRule1[3][0].equals("Sedang")) {
                         sharedWeightRO[1] = Double.parseDouble(max);
 //                        System.out.println(sharedWeightRO[1]);
-                    } else if (tempRule1[3][0].equals("Tinggi")) {
+                    }
+                    if (tempRule1[3][0].equals("Tinggi")) {
                         sharedWeightRO[2] = Double.parseDouble(max);
 //                        System.out.println(sharedWeightRO[2]);
                     }
@@ -166,18 +172,23 @@ public class MainClass {
         }
     }
 
-    public static void makeAll(int idx) {
+    public static void makeAll(int idx, int jenis) {
         data[idx] = new Data();
         data[idx].loadData("src\\data\\BUNDESBANK-BBK01_WT5511.xls", idx);
         data[idx].setMaxMin();
+        if(idx==3){
+            targettt = data[idx].getAllData();
+        }
 
-        fk[idx] = new FungsiKeanggotaan();
-        fk[idx].setBatas(0, data[idx].getMin());
-        fk[idx].setBatas(1, 267);
-        fk[idx].setBatas(2, 732);
-        fk[idx].setBatas(3, 965);
-        fk[idx].setBatas(4, 1431);
-        fk[idx].setBatas(5, data[idx].getMax());
+        if (jenis == 0) {
+            fk[idx] = new FungsiKeanggotaan();
+            fk[idx].setBatas(0, data[idx].getMin());
+            fk[idx].setBatas(1, 267);
+            fk[idx].setBatas(2, 732);
+            fk[idx].setBatas(3, 965);
+            fk[idx].setBatas(4, 1431);
+            fk[idx].setBatas(5, data[idx].getMax());
+        }
 
         fuzzy[idx] = new Fuzzifikasi(fk[idx], data[idx].getMax(), data[idx].getMin());
 
@@ -198,24 +209,109 @@ public class MainClass {
             }
 //            System.out.println(bobot[i]);
         }
-        System.out.println("1: "+sharedWeightRO[0]);
-        System.out.println("2: "+sharedWeightRO[1]);
-        System.out.println("3: "+sharedWeightRO[2]);
+//        System.out.println("1: " + sharedWeightRO[0]);
+//        System.out.println("2: " + sharedWeightRO[1]);
+//        System.out.println("3: " + sharedWeightRO[2]);
+    }
+
+    public static void parameterLearning(int idx) {
+        setBobotRuleToOutput();
+        Defuzzyfikasi def = new Defuzzyfikasi();
+        double tempA[] = new double[rules.size()];
+        double tempB[] = new double[rules.size()];
+        Rule[] tempRule = new Rule[rules.size()];
+        for (int i = 0; i < rules.size(); i++) {
+            tempA[i] = def.dodefuzyfikasi(rules.get(i).getTarget());
+            tempB[i] = def.dodefuzyfikasi(rules.get(i).getValueKonsekuen());
+            tempRule[i] = rules.get(i);
+        }
+        
+       
+        vo = new VarOutput(tempA, tempB, bobot);
+        vo.setRulesIn(tempRule);
+        vo.setFK(fk[idx]);
+        vo.countDelta();
+        double temp[][] = vo.getGeser();
+        for (int i = 0; i < rules.size(); i++) {
+//            System.out.println("Before");
+//            System.out.println(fk[idx].getBatas(4));
+//            System.out.println(fk[idx].getBatas(1));
+//            System.out.println(fk[idx].getBatas(2));
+//            System.out.println(fk[idx].getBatas(3));
+            
+            fk[idx].setBatas(2, fk[idx].getBatas(2) + temp[i][2]);
+
+            fk[idx].setBatas(1, fk[idx].getBatas(1) + temp[i][3]);
+            fk[idx].setBatas(4, fk[idx].getBatas(4) + temp[i][5]);
+
+            fk[idx].setBatas(3, fk[idx].getBatas(3) + temp[i][6]);
+//            System.out.println("After");
+//            System.out.println(fk[idx].getBatas(4));
+//            System.out.println(fk[idx].getBatas(1));
+//            System.out.println(fk[idx].getBatas(2));
+//            System.out.println(fk[idx].getBatas(3));
+
+//            fk[1].setBatas(2, fk[1].getBatas(2) + temp[i][2]);
+//
+//            fk[1].setBatas(1, fk[1].getBatas(1) + temp[i][3]);
+//            fk[1].setBatas(4, fk[1].getBatas(4) + temp[i][5]);
+//
+//            fk[1].setBatas(3, fk[1].getBatas(3) + temp[i][6]);
+//
+//            fk[2].setBatas(2, fk[2].getBatas(2) + temp[i][2]);
+//
+//            fk[2].setBatas(1, fk[2].getBatas(1) + temp[i][3]);
+//            fk[2].setBatas(4, fk[2].getBatas(4) + temp[i][5]);
+//
+//            fk[2].setBatas(3, fk[2].getBatas(3) + temp[i][6]);
+//
+//            fk[3].setBatas(2, fk[3].getBatas(2) + temp[i][2]);
+//
+//            fk[3].setBatas(1, fk[3].getBatas(1) + temp[i][3]);
+//            fk[3].setBatas(4, fk[3].getBatas(4) + temp[i][5]);
+//
+//            fk[3].setBatas(3, fk[3].getBatas(3) + temp[i][6]);
+        }
+//        vo.printError();
     }
 
     public static void main(String[] args) {
-
-        makeAll(0);
-        makeAll(1);
-        makeAll(2);
-        makeAll(3);
+//        System.out.println("Generasi 1");
+        makeAll(0, 0);
+        makeAll(1, 0);
+        makeAll(2, 0);
+        makeAll(3, 0);
 
         makeRule();
         shareWeight1();
         shareWeight2();
-        
-        setBobotRuleToOutput();
+
         printRule();
+        
+//        parameterLearning(0);
+//        parameterLearning(1);
+//        parameterLearning(2);
+//        parameterLearning(3);
+
+        int epoh = 5;
+        for (int i = 0; i < epoh; i++) {
+//            System.out.println("");
+//            System.out.println("Generasi " + (i + 1));
+//            makeAll(0, 1);
+//            makeAll(1, 1);
+//            makeAll(2, 1);
+//            makeAll(3, 1);
+//
+//            makeRule();
+//            shareWeight1();
+//            shareWeight2();
+//
+//            printRule();
+            parameterLearning(0);
+            parameterLearning(1);
+            parameterLearning(2);
+            parameterLearning(3);
+        }
     }
 
 }

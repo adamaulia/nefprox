@@ -194,4 +194,5 @@ public class StructureLearning {
         System.out.println(data[0].getMin());
         printRule();
     }
+
 }

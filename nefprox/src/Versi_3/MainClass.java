@@ -10,10 +10,14 @@ package Versi_3;
  * @author mickeyMice
  */
 public class MainClass {
+     
     static StructureLearning sl = new StructureLearning();
-    
     public static void main(String[] args) {
+        
         sl.doStructureLearning();
        
     }
+
+   
+
 }

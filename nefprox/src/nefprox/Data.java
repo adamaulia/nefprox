@@ -176,16 +176,11 @@ public double[][] normalisasi(String[][] rawdata){
             data[3][i]=(((data[3][i]-min1)/(max1-min1))*(0.9-0.1)+0.1);
         }
         System.out.println("end normalisasi");
+        System.out.println(data[1][1]);
         return data;
-
-    }
-
-    public double Denormalisasi(double input){
-        double denorm = 0;
         
-            denorm=((input-0.1)/(0.9-0.1));
-        return denorm;
     }
+
     
     public void run(){
         System.out.println("max1 "+max1);
