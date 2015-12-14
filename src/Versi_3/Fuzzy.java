@@ -15,8 +15,12 @@ public class Fuzzy {
     private FungsiKeanggotaan fk;
     private double output[]=new double[3];
     
-    public Fuzzy(FungsiKeanggotaan temp){
-        fk = temp;
+    public Fuzzy(){
+        
+    }
+    
+    public void setFK(FungsiKeanggotaan fk){
+        this.fk = fk;
     }
     
     public double[] fuzzyfikasi(double input){
